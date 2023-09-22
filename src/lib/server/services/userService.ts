@@ -20,6 +20,18 @@ export async function createUser(user: User, password: string) {
     await db.hset(usersHash, user.username, JSON.stringify(userEntity));
 }
 
+export async function getAllUsers() {
+    const rawEntries = await db.hgetall(usersHash);
+
+    return Object.values(rawEntries).map(
+        rawValue => JSON.parse(rawValue) as UserEntity
+    );
+}
+
+export async function updateUser(user: UserEntity) {
+    await db.hset(usersHash, user.username, JSON.stringify(user));
+}
+
 export async function userExists(username: string) {
     return (await db.hexists(usersHash, username)) === 1;
 }
