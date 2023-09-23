@@ -31,7 +31,12 @@ export async function getAllUsers() {
 }
 
 export async function updateUser(user: UserEntity) {
-    await db.hset(usersHash, user.username, JSON.stringify(user));
+    const pipeline = db.pipeline();
+
+    pipeline.hset(usersHash, user.username, JSON.stringify(user));
+    pipeline.hset(userSecretsHash, user.username, crypto.randomBytes(16).toString("hex"));
+
+    await pipeline.exec();
 }
 
 export async function userExists(username: string) {
