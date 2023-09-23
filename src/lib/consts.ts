@@ -1,4 +1,6 @@
-export const AUTH_TOKEN_COOKIE_NAME = "hackathon-token";
+export const AUTH_ACCESS_TOKEN_COOKIE_NAME = "hackathon-access-token";
+export const AUTH_REFRESH_TOKEN_COOKIE_NAME = "hackathon-refresh-token";
+export const AUTH_USERNAME_COOKIE_NAME = "hackathon-username";
 
 export const dishTypes = {
     fish: "Рыбное меню",

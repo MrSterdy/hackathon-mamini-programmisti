@@ -4,9 +4,11 @@ import jwt from "jsonwebtoken";
 import db from "$lib/server/db";
 import type { User } from "$lib/types";
 import type { UserEntity } from "$lib/server/entities";
-import { JWT_SECRET } from "$env/static/private";
+import { JWT_REFRESH_TOKEN_SECRET } from "$env/static/private";
+import * as crypto from "crypto";
 
 const usersHash = "users";
+const userSecretsHash = "userSecrets";
 
 export async function createUser(user: User, password: string) {
     const passwordHash = await bcrypt.hash(password, 10);
@@ -45,17 +47,44 @@ export async function getUser(username: string): Promise<UserEntity | null> {
     return JSON.parse(rawResult) as UserEntity;
 }
 
+export function getUserSecret(username: string) {
+    return db.hget(userSecretsHash, username);
+}
+
+export async function setUserSecret(username: string, secret: string) {
+    await db.hset(userSecretsHash, username, secret);
+}
+
 export function verifyPassword(passwordHash: string, password: string) {
     return bcrypt.compare(password, passwordHash);
 }
 
-export function signUser(user: User): string {
-    return jwt.sign({ user: JSON.stringify(user) }, JWT_SECRET);
-}
+export function signUser(user: User): {
+    accessToken: string;
+    accessTokenSecret: string;
+    refreshToken: string;
+} {
+    const accessTokenSecret = crypto.randomBytes(16).toString("hex");
+    const accessToken = jwt.sign({ user: JSON.stringify(user) }, accessTokenSecret, {
+        expiresIn: "1d"
+    });
+    const refreshToken = jwt.sign({ user: JSON.stringify(user) }, JWT_REFRESH_TOKEN_SECRET, {
+        expiresIn: "7d"
+    });
 
-export function verifyUser(token: string): User | null {
+    return { accessToken, accessTokenSecret, refreshToken };
+}
+export function verifyUser(accessToken: string, secret: string): User | null;
+export function verifyUser(refreshToken: string): User | null;
+export function verifyUser(
+    accessOrRefreshToken: string,
+    secret?: string
+): User | null {
     try {
-        const result = jwt.verify(token, JWT_SECRET) as { user: string };
+        const result = jwt.verify(
+            accessOrRefreshToken,
+            secret ?? JWT_REFRESH_TOKEN_SECRET
+        ) as { user: string };
 
         return JSON.parse(result.user) as User;
     } catch (e) {
