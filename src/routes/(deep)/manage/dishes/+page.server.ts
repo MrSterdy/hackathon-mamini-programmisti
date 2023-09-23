@@ -45,7 +45,6 @@ export const actions = {
         await createDish({
             id: "",
             name: "Новое блюдо",
-            description: "Описание",
             type: "meat"
         });
     }

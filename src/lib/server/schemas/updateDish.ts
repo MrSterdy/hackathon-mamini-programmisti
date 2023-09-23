@@ -10,10 +10,6 @@ const schema = z.object({
         invalid_type_error: "Название блюда должно быть строкой",
         required_error: "Название блюда не должно быть пустой строкой"
     }),
-    description: z.string({
-        invalid_type_error: "Описание блюда должно быть строкой",
-        required_error: "Название блюда не должно быть пустой строкой"
-    }),
 
     type: z.enum(["fish", "meat", "vegetarian", "nonAlcoholic", "buffet"], {
         invalid_type_error:

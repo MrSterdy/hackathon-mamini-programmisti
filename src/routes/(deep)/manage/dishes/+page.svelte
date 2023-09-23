@@ -32,12 +32,6 @@
                     type="text"
                     {...$updateConstraints.name}
                 />
-                <input
-                    name="description"
-                    value={dish.description}
-                    type="text"
-                    {...$updateConstraints.description}
-                />
 
                 <select name="type">
                     {#each Object.entries(dishTypes) as dishTypeEntry}

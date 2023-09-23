@@ -10,7 +10,6 @@ export type Dish = {
     id: string;
 
     name: string;
-    description: string;
 
     type: keyof typeof dishTypes;
 };
