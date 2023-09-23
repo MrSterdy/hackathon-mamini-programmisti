@@ -17,6 +17,14 @@
         @apply text-3xl text-white text-center font-mariupol;
     }
 
+    h2 {
+        @apply text-2xl text-white text-center font-mariupol;
+    }
+
+    h3 {
+        @apply text-xl text-white text-center font-mariupol;
+    }
+
     .form-error {
         @apply text-white text-lg;
     }

@@ -18,45 +18,48 @@
     } = superForm(data.deleteDishForm);
 </script>
 
-<h1>Меню</h1>
+<section class="flex flex-col gap-3">
+    <h1 class="text-stone-900">Меню</h1>
 
-<ul>
-    {#each data.dishes as dish}
-        <li>
-            <form method="post" action="?/update" use:updateEnhance>
-                <input type="hidden" name="id" value={dish.id} />
+    <ul class="flex flex-col gap-3">
+        {#each data.dishes as dish}
+            <li class="flex flex-col gap-1">
+                <form method="post" action="?/update" use:updateEnhance class="flex flex-col gap-1">
+                    <input type="hidden" name="id" value={dish.id} />
 
-                <input
-                    name="name"
-                    value={dish.name}
-                    type="text"
-                    {...$updateConstraints.name}
-                />
+                    <input
+                        name="name"
+                        class="w-full"
+                        value={dish.name}
+                        type="text"
+                        {...$updateConstraints.name}
+                    />
 
-                <select name="type">
-                    {#each Object.entries(dishTypes) as dishTypeEntry}
-                        <option
-                            value={dishTypeEntry[0]}
-                            selected={dishTypeEntry[0] === dish.type}
+                    <select name="type" class="w-full">
+                        {#each Object.entries(dishTypes) as dishTypeEntry}
+                            <option
+                                value={dishTypeEntry[0]}
+                                selected={dishTypeEntry[0] === dish.type}
                             >{dishTypeEntry[1]}</option>
-                    {/each}
-                </select>
+                        {/each}
+                    </select>
 
-                {#if $updateForm.id === dish.id && $updateMessage}
-                    <span>{$updateMessage}</span>
-                {/if}
+                    {#if $updateForm.id === dish.id && $updateMessage}
+                        <span>{$updateMessage}</span>
+                    {/if}
 
-                <input type="submit" value="Сохранить" />
-            </form>
+                    <input class="btn-black w-full" type="submit" value="Сохранить" />
+                </form>
 
-            <form method="post" action="?/delete" use:deleteEnhance>
-                <input type="hidden" name="id" value={dish.id} />
-                <input type="submit" value="Удалить" />
-            </form>
-        </li>
-    {/each}
-</ul>
+                <form method="post" action="?/delete" use:deleteEnhance>
+                    <input type="hidden" name="id" value={dish.id} />
+                    <input class="btn-black w-full" type="submit" value="Удалить" />
+                </form>
+            </li>
+        {/each}
+    </ul>
 
-<form method="post" action="?/create" use:kitEnhance>
-    <input type="submit" value="Создать блюдо" />
-</form>
+    <form method="post" action="?/create" use:kitEnhance>
+        <input type="submit" value="Создать блюдо" class="btn-black w-full" />
+    </form>
+</section>
