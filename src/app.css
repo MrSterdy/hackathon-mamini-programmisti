@@ -30,7 +30,7 @@
     }
 
     .btn-white {
-        @apply border-2 p-1 text-lg border-white;
+        @apply border-2 p-1 text-white text-lg border-white;
     }
 
     .btn-black {
