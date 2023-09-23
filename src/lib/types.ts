@@ -1,4 +1,4 @@
-import type { dishTypes } from "$lib/consts";
+import type { dishTypes, holidayTypes } from "$lib/consts";
 
 export type User = {
     username: string;
@@ -14,3 +14,19 @@ export type Dish = {
 
     type: keyof typeof dishTypes;
 };
+
+export type Order = {
+    id: string;
+
+    username: string;
+
+    holidayType: keyof typeof holidayTypes;
+
+    people: number;
+
+    budget: number;
+
+    date: string;
+
+    dishes: string[];
+}

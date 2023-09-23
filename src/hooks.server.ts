@@ -1,3 +1,6 @@
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
+
 import type { Handle } from "@sveltejs/kit";
 import { AUTH_TOKEN_COOKIE_NAME } from "$lib/consts";
 import { verifyUser } from "$lib/server/services/userService";
@@ -15,3 +18,5 @@ export const handle: Handle = async ({ event, resolve }) => {
 
     return resolve(event);
 };
+
+dayjs.locale("ru");

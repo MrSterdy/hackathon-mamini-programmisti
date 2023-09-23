@@ -7,3 +7,10 @@ export const dishTypes = {
     vegetarian: "Вегетарианское меню",
     buffet: "Уличное меню для фуршета"
 } as const;
+
+export const holidayTypes = {
+    business: "Деловой корпоратив",
+    entertainment: "Развлекательный корпоратив",
+    street: "Корпоратив на улице",
+    lunch: "Обед для конференции"
+} as const;
