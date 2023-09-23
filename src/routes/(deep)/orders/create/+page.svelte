@@ -13,26 +13,26 @@
         dish => dish.type === selectedDishType
     );
 
-    function updateDish({ currentTarget }: { currentTarget: HTMLInputElement }) {
+    function updateDish({
+        currentTarget
+    }: {
+        currentTarget: HTMLInputElement;
+    }) {
         $form.dishes = currentTarget.checked
             ? [...$form.dishes, currentTarget.value]
-            : $form.dishes.filter(
-                dish => dish !== currentTarget.value
-            );
+            : $form.dishes.filter(dish => dish !== currentTarget.value);
     }
 </script>
 
-<h1>Создать заказ</h1>
+<form method="post" class="flex flex-col gap-2" use:enhance>
+    <h1 class="text-stone-900">Создать заказ</h1>
 
-<form method="post" use:enhance>
-    {#if $message}<span>{$message}</span>{/if}
-
-    <ul>
-        <li>
+    <div id="items" class="flex flex-col gap-3">
+        <div>
             <h2>Дата</h2>
             <input type="date" name="date" bind:value={$form.date} />
-        </li>
-        <li>
+        </div>
+        <div>
             <h2>Тип праздника</h2>
             <select bind:value={$form.holidayType} name="holidayType">
                 {#each Object.entries(holidayTypes) as holidayType}
@@ -42,28 +42,26 @@
                     >
                 {/each}
             </select>
-        </li>
-        <li>
+        </div>
+        <div>
             <h2>Кол-во людей</h2>
-            <span>{$form.people}</span>
             <input
-                type="range"
+                type="number"
                 name="people"
                 bind:value={$form.people}
                 {...$constraints.people}
             />
-        </li>
-        <li>
+        </div>
+        <div>
             <h2>Бюджет</h2>
-            <span>{$form.budget}</span>
             <input
-                type="range"
+                type="number"
                 name="budget"
                 bind:value={$form.budget}
                 {...$constraints.budget}
             />
-        </li>
-        <li>
+        </div>
+        <div>
             <h2>Тип меню</h2>
 
             <select bind:value={selectedDishType}>
@@ -74,8 +72,8 @@
                     >
                 {/each}
             </select>
-        </li>
-        <li>
+        </div>
+        <div>
             {#if !filteredDishes.length}
                 <h2>Не найдено подходящих блюд для выбранного меню</h2>
             {:else}
@@ -96,8 +94,20 @@
                     {/each}
                 </ul>
             {/if}
-        </li>
-    </ul>
+        </div>
+    </div>
 
-    <input type="submit" value="Заказать" />
+    {#if $message}<span class="form-error">{$message}</span>{/if}
+
+    <input class="btn-black" type="submit" value="Заказать" />
 </form>
+
+<style lang="postcss">
+    h2 {
+        @apply text-xl;
+    }
+
+    #items > * {
+        @apply flex flex-col gap-1;
+    }
+</style>

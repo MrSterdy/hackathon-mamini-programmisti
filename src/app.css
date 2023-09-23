@@ -21,7 +21,11 @@
         @apply text-white text-lg;
     }
 
-    .btn {
-        @apply border-white border-2 text-white p-1 text-lg;
+    .btn-white {
+        @apply border-2 p-1 text-lg border-white;
+    }
+
+    .btn-black {
+        @apply border-stone-900 border-2 text-stone-900 p-1 text-lg;
     }
 }

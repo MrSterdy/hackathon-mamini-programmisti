@@ -2,20 +2,50 @@
     import type { PageData } from "./$types";
 
     import dayjs from "dayjs";
+    import { holidayTypes } from "$lib/consts";
 
     export let data: PageData;
 </script>
 
-{#if !data.orders?.length}
-    <h1>У вас нет заказов</h1>
-{:else}
-    <h1>Ваши заказы</h1>
+<section class="flex flex-col gap-2">
+    <h1 class="text-stone-900">Ваши заказы</h1>
 
-    <ul>
-        {#each data.orders as order}
-            <li>{dayjs(order.date).format("MMMM D, YYYY")}</li>
-        {/each}
-    </ul>
-{/if}
+    {#if !data.orders?.length}
+        <h2 class="text-stone-900 text-2xl text-center">У вас нет заказов</h2>
+    {:else}
+        <ul class="flex flex-col gap-3">
+            {#each data.orders as order}
+                <li class="[&:not(:last-of-type)]:border-b-2 [&:not(:last-of-type)]:border-b-stone-900">
+                    <h3 class="text-stone-900 text-xl">
+                        На {dayjs(order.date).format("MMMM D, YYYY")}:
+                    </h3>
 
-<a href="/orders/create">Создать заказ</a>
+                    <div>
+                        <div>
+                            <span>Мероприятие:
+                                <span>{holidayTypes[order.holidayType]}</span>
+                            </span>
+                        </div>
+                        <div>
+                            <span>Бюджет: <span>{order.budget}</span> руб.</span>
+                        </div>
+                        <div>
+                            <span>
+                                Количество мест: <span>{order.people}</span>
+                                чел.
+                            </span>
+                        </div>
+                        <div>
+                            <span>Блюда:
+                                <span>{order.dishes.map(dish => dish.name).join(", ")}</span>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+            {/each}
+        </ul>
+    {/if}
+    <a role="button" class="btn-black w-full text-center" href="/orders/create">
+        Создать заказ
+    </a>
+</section>

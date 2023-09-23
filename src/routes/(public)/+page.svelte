@@ -6,7 +6,7 @@
         </h3>
     </div>
     <a
-        class="btn"
+        class="btn-white"
         role="button"
         href="/orders">ЗАКАЗАТЬ СЕЙЧАС</a
     >

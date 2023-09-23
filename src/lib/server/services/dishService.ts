@@ -11,6 +11,12 @@ export async function getAllDishes() {
     return Object.values(result).map(rawValue => JSON.parse(rawValue) as Dish);
 }
 
+export async function getDishById(id: string) {
+    const result = await db.hget(dishesHash, id);
+
+    return result ? JSON.parse(result) as Dish : null;
+}
+
 export async function createDish(dish: Dish) {
     dish.id = randomUUID();
 

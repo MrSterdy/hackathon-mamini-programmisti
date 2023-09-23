@@ -38,7 +38,7 @@ const schema = z.object({
             invalid_type_error: "Блюда должны быть массивом",
             required_error: "Блюда являются обязатальными"
         }
-    )
+    ).nonempty("Список блюд не должен быть пустым")
 });
 
 export default schema;
