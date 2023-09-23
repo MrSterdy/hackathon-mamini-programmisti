@@ -3,7 +3,12 @@ export default {
     mode: "jit",
     content: ["./src/**/*.{html,js,svelte,ts}"],
     theme: {
-        extend: {}
+        extend: {
+            fontFamily: {
+                doloman: ["DolomanPavljenko", "sans-serif"],
+                mariupol: ["Mariupol", "sans-serif"]
+            }
+        }
     },
-    plugins: []
+    plugins: [require("@tailwindcss/forms")]
 };
