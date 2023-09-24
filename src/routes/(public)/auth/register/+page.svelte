@@ -33,7 +33,7 @@
         {#if $message}<span class="form-error">{$message}</span>{/if}
     </section>
 
-    <input class="btn-black" type="submit" value="Зарегистрироваться" />
+    <input class="btn-white" type="submit" value="Зарегистрироваться" />
     <h3 class="text-white text-xl">ИЛИ</h3>
-    <a role="button" class="btn-black" href="/auth/login">Войти</a>
+    <a role="button" class="btn-white" href="/auth/login">Войти</a>
 </form>
