@@ -18,7 +18,7 @@
     }: {
         currentTarget: HTMLInputElement;
     }) {
-        $form.dishes = currentTarget.checked
+        ($form.dishes as string[]) = currentTarget.checked
             ? [...$form.dishes, currentTarget.value]
             : $form.dishes.filter(dish => dish !== currentTarget.value);
     }
