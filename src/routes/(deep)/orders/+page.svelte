@@ -50,7 +50,16 @@
             {/each}
         </ul>
     {/if}
-    <a role="button" class="btn-black w-full text-center" href="/orders/create">
+
+    <a role="button" class="btn-black text-center" href="/orders/create">
         Создать заказ
     </a>
+
+    {#if data.user.role !== "USER"}
+        <a role="button" href="/manage/dishes" class="btn-black text-center">Управление блюдами</a>
+
+        {#if data.user.role === "ADMIN"}
+            <a role="button" href="/manage/users" class="btn-black text-center">Управление организаторами</a>
+        {/if}
+    {/if}
 </section>

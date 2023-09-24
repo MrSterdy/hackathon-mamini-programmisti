@@ -18,7 +18,7 @@
     );
 </script>
 
-<section>
+<section class="flex flex-col gap-2">
     <div>
         <h2 class="text-stone-900">Организаторы:</h2>
 
@@ -82,4 +82,6 @@
             <h3 class="text-stone-900">Нет обычных пользователей</h3>
         {/if}
     </div>
+
+    <a role="button" class="btn-black text-center" href="/orders">Назад</a>
 </section>

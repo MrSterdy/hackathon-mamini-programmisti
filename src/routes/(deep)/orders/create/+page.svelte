@@ -29,11 +29,11 @@
 
     <div id="items" class="flex flex-col gap-3">
         <div>
-            <h2>Дата</h2>
+            <h2 class="text-stone-900">Дата</h2>
             <input type="date" name="date" bind:value={$form.date} />
         </div>
         <div>
-            <h2>Тип праздника</h2>
+            <h2 class="text-stone-900">Тип праздника</h2>
             <select bind:value={$form.holidayType} name="holidayType">
                 {#each Object.entries(holidayTypes) as holidayType}
                     <option
@@ -44,7 +44,7 @@
             </select>
         </div>
         <div>
-            <h2>Кол-во людей</h2>
+            <h2 class="text-stone-900">Кол-во людей</h2>
             <input
                 type="number"
                 name="people"
@@ -53,7 +53,7 @@
             />
         </div>
         <div>
-            <h2>Бюджет</h2>
+            <h2 class="text-stone-900">Бюджет</h2>
             <input
                 type="number"
                 name="budget"
@@ -62,7 +62,7 @@
             />
         </div>
         <div>
-            <h2>Тип меню</h2>
+            <h2 class="text-stone-900">Тип меню</h2>
 
             <select bind:value={selectedDishType}>
                 {#each Object.entries(dishTypes) as dishType}
@@ -75,9 +75,9 @@
         </div>
         <div>
             {#if !filteredDishes.length}
-                <h2>Не найдено подходящих блюд для выбранного меню</h2>
+                <h2 class="text-stone-900">Не найдено подходящих блюд для выбранного меню</h2>
             {:else}
-                <h2>Блюда</h2>
+                <h2 class="text-stone-900">Блюда</h2>
 
                 <ul>
                     {#each filteredDishes as dish}
@@ -100,6 +100,7 @@
     {#if $message}<span class="form-error">{$message}</span>{/if}
 
     <input class="btn-black" type="submit" value="Заказать" />
+    <a role="button" href="/orders" class="btn-black text-center">Назад</a>
 </form>
 
 <style lang="postcss">
