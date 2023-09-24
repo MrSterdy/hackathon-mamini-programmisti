@@ -30,4 +30,4 @@ export type Order = {
     dishes: string[];
 }
 
-export type DetailedOrder = Omit<Order, "dishes"> & { dishes: Dish[] };
+export type DetailedOrder = Omit<Order, "dishes"> & { dishes: (Dish | null)[] };

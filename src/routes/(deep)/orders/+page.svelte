@@ -15,6 +15,7 @@
     {:else}
         <ul class="flex flex-col gap-3">
             {#each data.orders as order}
+                {@const dishes = order.dishes.filter(dish => dish !== null)}
                 <li class="[&:not(:last-of-type)]:border-b-2 [&:not(:last-of-type)]:border-b-stone-900">
                     <h3 class="text-stone-900 text-xl">
                         На {dayjs(order.date).format("MMMM D, YYYY")}:
@@ -36,9 +37,13 @@
                             </span>
                         </div>
                         <div>
-                            <span>Блюда:
-                                <span>{order.dishes.map(dish => dish.name).join(", ")}</span>
-                            </span>
+                            {#if dishes.length}
+                                <span>Блюда:
+                                    <span>{dishes.map(dish => dish?.name).join(", ")}</span>
+                                </span>
+                            {:else}
+                                <span>Нет блюд</span>
+                            {/if}
                         </div>
                     </div>
                 </li>
