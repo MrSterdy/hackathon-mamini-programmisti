@@ -18,6 +18,10 @@
     );
 </script>
 
+<svelte:head>
+    <title>Управление организаторами</title>
+</svelte:head>
+
 <section class="flex flex-col gap-2">
     <div>
         <h2 class="text-stone-900">Организаторы:</h2>

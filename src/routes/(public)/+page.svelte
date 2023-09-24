@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Мамины программисты</title>
+</svelte:head>
+
 <div class="flex gap-10 flex-col items-center">
     <div class="flex flex-col gap-5">
         <h1>Мамины программисты</h1>

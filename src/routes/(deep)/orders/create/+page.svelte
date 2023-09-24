@@ -24,6 +24,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>Создать заказ</title>
+</svelte:head>
+
 <form method="post" class="flex flex-col gap-2" use:enhance>
     <h1 class="text-stone-900">Создать заказ</h1>
 

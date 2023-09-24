@@ -7,6 +7,10 @@
     export let data: PageData;
 </script>
 
+<svelte:head>
+    <title>Заказы</title>
+</svelte:head>
+
 <section class="flex flex-col gap-2">
     <h1 class="text-stone-900">Ваши заказы</h1>
 

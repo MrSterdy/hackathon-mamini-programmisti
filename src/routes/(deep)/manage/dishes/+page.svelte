@@ -18,6 +18,10 @@
     } = superForm(data.deleteDishForm);
 </script>
 
+<svelte:head>
+    <title>Управление блюдами</title>
+</svelte:head>
+
 <section class="flex flex-col gap-3">
     <h1 class="text-stone-900">Меню</h1>
 

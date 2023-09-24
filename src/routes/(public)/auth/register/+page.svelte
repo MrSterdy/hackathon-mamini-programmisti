@@ -9,6 +9,10 @@
     );
 </script>
 
+<svelte:head>
+    <title>Регистрация</title>
+</svelte:head>
+
 <form method="POST" use:enhance class="flex flex-col gap-3 items-center">
     <h1>Регистрация</h1>
 
