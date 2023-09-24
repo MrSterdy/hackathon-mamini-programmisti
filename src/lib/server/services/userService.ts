@@ -19,11 +19,11 @@ export async function createUser(user: User, password: string) {
         passwordHash
     };
 
-    await db.hset(usersHash, user.username, JSON.stringify(userEntity));
+    await db.HSET(usersHash, user.username, JSON.stringify(userEntity));
 }
 
 export async function getAllUsers() {
-    const rawEntries = await db.hgetall(usersHash);
+    const rawEntries = await db.HGETALL(usersHash);
 
     return Object.values(rawEntries).map(
         rawValue => JSON.parse(rawValue) as UserEntity
@@ -31,20 +31,20 @@ export async function getAllUsers() {
 }
 
 export async function updateUser(user: UserEntity) {
-    const pipeline = db.pipeline();
+    const transaction = db.multi();
 
-    pipeline.hset(usersHash, user.username, JSON.stringify(user));
-    pipeline.hset(userSecretsHash, user.username, crypto.randomBytes(16).toString("hex"));
+    transaction.HSET(usersHash, user.username, JSON.stringify(user));
+    transaction.HSET(userSecretsHash, user.username, crypto.randomBytes(16).toString("hex"));
 
-    await pipeline.exec();
+    await transaction.exec();
 }
 
-export async function userExists(username: string) {
-    return (await db.hexists(usersHash, username)) === 1;
+export function userExists(username: string) {
+    return db.HEXISTS(usersHash, username);
 }
 
 export async function getUser(username: string): Promise<UserEntity | null> {
-    const rawResult = await db.hget(usersHash, username);
+    const rawResult = await db.HGET(usersHash, username);
     if (!rawResult) {
         return null;
     }
@@ -53,11 +53,11 @@ export async function getUser(username: string): Promise<UserEntity | null> {
 }
 
 export function getUserSecret(username: string) {
-    return db.hget(userSecretsHash, username);
+    return db.HGET(userSecretsHash, username);
 }
 
 export async function setUserSecret(username: string, secret: string) {
-    await db.hset(userSecretsHash, username, secret);
+    await db.HSET(userSecretsHash, username, secret);
 }
 
 export function verifyPassword(passwordHash: string, password: string) {

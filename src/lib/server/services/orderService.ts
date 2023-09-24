@@ -6,38 +6,36 @@ const ordersHash = "orders";
 const userOrdersHash = "userOrders";
 
 export async function getUserOrders(username: string) {
-    const orders = await db.hget(userOrdersHash, username);
+    const orders = await db.HGET(userOrdersHash, username);
     if (!orders) {
         return null;
     }
 
     const ids = JSON.parse(orders) as string[];
 
-    const pipeline = db.pipeline();
+    const transaction = db.multi();
     for (const id of ids) {
-        pipeline.hget(ordersHash, id);
+        transaction.HGET(ordersHash, id);
     }
 
-    const result = await pipeline.exec();
+    const result = await transaction.exec();
 
-    return result!.map(
-        ([, rawValue]) => JSON.parse(rawValue as string) as Order
-    );
+    return result!.map(value => JSON.parse(value as string) as Order);
 }
 
 export async function createOrder(order: Order) {
     order.id = randomUUID();
 
     const userOrders = JSON.parse(
-        (await db.hget(userOrdersHash, order.username)) ?? "[]"
+        (await db.HGET(userOrdersHash, order.username)) ?? "[]"
     ) as string[];
 
     userOrders.push(order.id);
 
-    const pipeline = db.pipeline();
+    const transaction = db.multi();
 
-    pipeline.hset(ordersHash, order.id, JSON.stringify(order));
-    pipeline.hset(userOrdersHash, order.username, JSON.stringify(userOrders));
+    transaction.HSET(ordersHash, order.id, JSON.stringify(order));
+    transaction.HSET(userOrdersHash, order.username, JSON.stringify(userOrders));
 
-    await pipeline.exec();
+    await transaction.exec();
 }

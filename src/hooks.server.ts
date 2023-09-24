@@ -17,8 +17,14 @@ import {
 } from "$lib/server/services/userService";
 import type { User } from "$lib/types";
 import { ADMIN_PASSWORD, ADMIN_USERNAME } from "$env/static/private";
+import db from "$lib/server/db";
 
 export const handle: Handle = async ({ event, resolve }) => {
+    if (!db.isOpen) {
+        await db.connect()
+        await createUser({ username: ADMIN_USERNAME, role: "ADMIN" }, ADMIN_PASSWORD);
+    }
+
     const accessToken = event.cookies.get(AUTH_ACCESS_TOKEN_COOKIE_NAME);
     const refreshToken = event.cookies.get(AUTH_REFRESH_TOKEN_COOKIE_NAME);
     const username = event.cookies.get(AUTH_USERNAME_COOKIE_NAME);
@@ -96,5 +102,3 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 dayjs.locale("ru");
-
-createUser({ username: ADMIN_USERNAME, role: "ADMIN" }, ADMIN_PASSWORD);
