@@ -6,7 +6,7 @@ import { message, superValidate } from "sveltekit-superforms/server";
 import updateUserSchema from "$lib/server/schemas/updateUser";
 
 export const load: PageServerLoad = async event => {
-    if (event.locals.user?.role !== "ADMIN") {
+    if (event.locals.user!.role !== "ADMIN") {
         throw error(403);
     }
 
