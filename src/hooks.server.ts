@@ -8,6 +8,7 @@ import {
     AUTH_USERNAME_COOKIE_NAME
 } from "$lib/consts";
 import {
+    createUser,
     getUser,
     getUserSecret,
     setUserSecret,
@@ -15,6 +16,7 @@ import {
     verifyUser
 } from "$lib/server/services/userService";
 import type { User } from "$lib/types";
+import { ADMIN_PASSWORD, ADMIN_USERNAME } from "$env/static/private";
 
 export const handle: Handle = async ({ event, resolve }) => {
     const accessToken = event.cookies.get(AUTH_ACCESS_TOKEN_COOKIE_NAME);
@@ -94,3 +96,5 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 dayjs.locale("ru");
+
+createUser({ username: ADMIN_USERNAME, role: "ADMIN" }, ADMIN_PASSWORD);
