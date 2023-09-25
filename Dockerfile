@@ -2,7 +2,7 @@ FROM node:18.16.1-alpine3.17 as build
 
 WORKDIR /app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
 
@@ -17,7 +17,7 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY --from=build /app/package*.json .
+COPY --from=build /app/package*.json ./
 COPY --from=build /app/build .
 
 RUN npm install --omit=dev
