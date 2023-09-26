@@ -1,15 +1,11 @@
 import type { PageServerLoad } from "./$types";
-import { type Actions, error, fail } from "@sveltejs/kit";
+import { type Actions, fail } from "@sveltejs/kit";
 import { getAllUsers, getUser, updateUser } from "$lib/server/services/userService";
 import type { User } from "$lib/types";
 import { message, superValidate } from "sveltekit-superforms/server";
 import updateUserSchema from "$lib/server/schemas/updateUser";
 
-export const load: PageServerLoad = async event => {
-    if (event.locals.user!.role !== "ADMIN") {
-        throw error(403);
-    }
-
+export const load: PageServerLoad = async () => {
     const users = await getAllUsers();
 
     const form = await superValidate(updateUserSchema);
