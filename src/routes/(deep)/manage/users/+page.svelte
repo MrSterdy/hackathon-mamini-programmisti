@@ -7,7 +7,7 @@
 
     const { form, constraints, enhance, message } = superForm(data.form);
 
-    const [organizers, users] = data.users.reduce(
+    $: [organizers, users] = data.users.reduce(
         (acc, u) =>
             u.role === "ORGANIZER"
                 ? [[...acc[0], u], acc[1]]
